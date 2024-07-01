@@ -1,4 +1,5 @@
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
 
 // PLACEHOLDER DATA
 const cabin = {
@@ -20,7 +21,7 @@ export default function Page() {
     <div className="mx-auto mt-8 max-w-6xl">
       <div className="mb-24 grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 px-10 py-3">
         <div className="relative -translate-x-3 scale-[1.15]">
-          <img src={image} alt={`Cabin ${name}`} />
+          <Image src={image} alt={`Cabin ${name}`} />
         </div>
 
         <div>
