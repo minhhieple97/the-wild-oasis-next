@@ -138,7 +138,7 @@ export async function getCountries() {
 /////////////
 // CREATE
 
-export async function createGuest(newGuest) {
+export async function createGuest(newGuest: any) {
   const { data, error } = await supabase.from('guests').insert([newGuest]);
 
   if (error) {
@@ -149,7 +149,7 @@ export async function createGuest(newGuest) {
   return data;
 }
 
-export async function createBooking(newBooking) {
+export async function createBooking(newBooking: any) {
   const { data, error } = await supabase
     .from('bookings')
     .insert([newBooking])
@@ -169,7 +169,7 @@ export async function createBooking(newBooking) {
 // UPDATE
 
 // The updatedFields is an object which should ONLY contain the updated data
-export async function updateGuest(id: string, updatedFields) {
+export async function updateGuest(id: string, updatedFields: any) {
   const { data, error } = await supabase
     .from('guests')
     .update(updatedFields)
@@ -184,7 +184,7 @@ export async function updateGuest(id: string, updatedFields) {
   return data;
 }
 
-export async function updateBooking(id: string, updatedFields) {
+export async function updateBooking(id: string, updatedFields: any) {
   const { data, error } = await supabase
     .from('bookings')
     .update(updatedFields)
