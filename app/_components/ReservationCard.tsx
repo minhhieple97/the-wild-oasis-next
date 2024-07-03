@@ -8,7 +8,7 @@ export const formatDistanceFromNow = (dateStr: string) =>
     addSuffix: true,
   }).replace('about ', '');
 interface ReservationCardProps {
-  booking: string;
+  booking: any;
 }
 function ReservationCard({ booking }: ReservationCardProps) {
   const {
