@@ -6,12 +6,14 @@ export const metadata = {
 import about1 from '@/public/about-1.jpg';
 import about2 from '@/public/about-2.jpg';
 import Link from 'next/link';
-export default function Page() {
+import { getCabins } from '../_lib/data-service';
+export const revalidate = 24 * 3600;
+export default async function Page() {
+  const cabins = await getCabins();
   return (
     <div className="grid grid-cols-5 items-center gap-x-24 gap-y-32 text-lg">
       <div className="col-span-3">
         <h1 className="mb-10 text-4xl font-medium text-accent-400">Welcome to The Wild Oasis</h1>
-
         <div className="space-y-8">
           <p>
             Where nature&apos;s beauty and comfortable living blend seamlessly. Hidden away in the
@@ -20,9 +22,10 @@ export default function Page() {
             and enjoying simple pleasures with family.
           </p>
           <p>
-            Our 8 luxury cabins provide a cozy base, but the real freedom and peace you&apos;ll find
-            in the surrounding mountains. Wander through lush forests, breathe in the fresh air, and
-            watch the stars twinkle above from the warmth of a campfire or your hot tub.
+            Our {cabins.length} luxury cabins provide a cozy base, but the real freedom and peace
+            you&apos;ll find in the surrounding mountains. Wander through lush forests, breathe in
+            the fresh air, and watch the stars twinkle above from the warmth of a campfire or your
+            hot tub.
           </p>
           <p>
             This is where memorable moments are made, surrounded by nature&apos;s splendor.
