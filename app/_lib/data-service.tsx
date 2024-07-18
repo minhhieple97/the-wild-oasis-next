@@ -1,23 +1,23 @@
 import { eachDayOfInterval } from 'date-fns';
 import { supabase } from './supabase';
-import { Cabin } from '../_types';
+import { Cabin, Setting } from '../_types';
 import { notFound } from 'next/navigation';
 
 /////////////
 // GET
 
-export async function getCabin(id: string) {
+export async function getCabin(id: string): Promise<Cabin> {
   const { data, error } = await supabase.from('cabins').select('*').eq('id', id).single();
 
   // For testing
-  // await new Promise((res) => setTimeout(res, 1000));
+  await new Promise((res) => setTimeout(res, 1000));
 
   if (error) {
     console.error(error);
     notFound();
   }
 
-  return data;
+  return data as Cabin;
 }
 
 export async function getCabinPrice(id: string) {
@@ -37,7 +37,7 @@ export async function getCabinPrice(id: string) {
 export const getCabins = async function (): Promise<Cabin[]> {
   const { data, error } = await supabase
     .from('cabins')
-    .select('id, name, maxCapacity, regularPrice, discount, image')
+    .select('id, name, maxCapacity, regularPrice, discount, image, description')
     .order('name');
   await new Promise((res, rej) => setTimeout(res, 1000));
   if (error) {
@@ -45,7 +45,7 @@ export const getCabins = async function (): Promise<Cabin[]> {
     throw new Error('Cabins could not be loaded');
   }
 
-  return data;
+  return data as Cabin[];
 };
 
 // Guests are uniquely identified by their email address
@@ -115,7 +115,7 @@ export async function getBookedDatesByCabinId(cabinId: string) {
   return bookedDates;
 }
 
-export async function getSettings() {
+export async function getSetting(): Promise<Setting> {
   const { data, error } = await supabase.from('settings').select('*').single();
 
   if (error) {
@@ -123,7 +123,7 @@ export async function getSettings() {
     throw new Error('Settings could not be loaded');
   }
 
-  return data;
+  return data as Setting;
 }
 
 export async function getCountries() {
