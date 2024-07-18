@@ -3,11 +3,13 @@ import { CabinCard } from '../_components/CabinCard';
 import { CabinList } from '../_components/CabinList';
 import { getCabins } from '../_lib/data-service';
 import Spinner from '../_components/Spinner';
+import { CapacityEnum, SearchParams } from '../_types';
+import { Filter } from '../_components/Filter';
 export const metadata = {
   title: 'Cabins',
 };
-export const revalidate = 15;
-export default function Page() {
+export default function Page({ searchParams }: { searchParams: SearchParams }) {
+  const filter = searchParams?.capacity ?? CapacityEnum.ALL;
   return (
     <div>
       <h1 className="mb-5 text-4xl font-medium text-accent-400">Our Luxury Cabins</h1>
@@ -18,8 +20,11 @@ export default function Page() {
         own little home away from home. The perfect spot for a peaceful, calm vacation. Welcome to
         paradise.
       </p>
-      <Suspense fallback={<Spinner></Spinner>}>
-        <CabinList></CabinList>
+      <div className="mb-8 flex justify-end">
+        <Filter></Filter>
+      </div>
+      <Suspense fallback={<Spinner></Spinner>} key={filter.toString()}>
+        <CabinList capacity={filter as CapacityEnum}></CabinList>
       </Suspense>
     </div>
   );
