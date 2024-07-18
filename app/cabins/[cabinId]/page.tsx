@@ -59,7 +59,9 @@ export default async function Page({ params }: { params: { cabinId: string } }) 
       </div>
 
       <div>
-        <h2 className="text-center text-5xl font-semibold">Reserve today. Pay on arrival.</h2>
+        <h2 className="text-center text-5xl font-semibold">
+          Reserve {cabin.name} today. Pay on arrival.
+        </h2>
       </div>
     </div>
   );
