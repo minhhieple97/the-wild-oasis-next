@@ -4,6 +4,7 @@ import '@/app/_styles/global.css';
 import Logo from './_components/Logo';
 import Navigation from './_components/Navigation';
 import Header from './_components/Header';
+import { ReservationProvider } from './_context/reservation/ReservationContext';
 
 const josefin = Josefin_Sans({ subsets: ['latin'], display: 'swap' });
 
@@ -26,7 +27,9 @@ export default function RootLayout({
       >
         <Header></Header>
         <div className="grid flex-1 px-8 py-12">
-          <main className="mx-auto w-full max-w-7xl">{children}</main>
+          <main className="mx-auto w-full max-w-7xl">
+            <ReservationProvider>{children}</ReservationProvider>
+          </main>
         </div>
         <footer>Copyright by The Wild Oasis</footer>
       </body>

@@ -5,6 +5,7 @@ import { getCabins } from '../_lib/data-service';
 import Spinner from '../_components/Spinner';
 import { CapacityEnum, SearchParams } from '../_types';
 import { Filter } from '../_components/Filter';
+import { ReservationReminder } from '../_components/ReservationReminder';
 export const metadata = {
   title: 'Cabins',
 };
@@ -25,6 +26,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
       </div>
       <Suspense fallback={<Spinner></Spinner>} key={filter.toString()}>
         <CabinList capacity={filter as CapacityEnum}></CabinList>
+        <ReservationReminder></ReservationReminder>
       </Suspense>
     </div>
   );

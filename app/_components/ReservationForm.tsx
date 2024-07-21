@@ -2,11 +2,13 @@
 
 import { FC } from 'react';
 import { Cabin } from '../_types';
+import { useReservationContext } from '../_context/reservation/useReservationContext';
 
 interface ReservationFormProps {
   cabin: Cabin;
 }
 export const ReservationForm: FC<ReservationFormProps> = ({ cabin }) => {
+  const { range } = useReservationContext();
   const { maxCapacity } = cabin;
 
   return (
@@ -25,6 +27,9 @@ export const ReservationForm: FC<ReservationFormProps> = ({ cabin }) => {
           <p>{user.name}</p>
         </div> */}
       </div>
+      <p>
+        {range?.from?.toLocaleDateString()} - {range?.to?.toLocaleDateString()}
+      </p>
 
       <form className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg">
         <div className="space-y-2">

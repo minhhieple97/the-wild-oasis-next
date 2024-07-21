@@ -8,7 +8,6 @@ export const Reservation = async ({ cabin }: { cabin: Cabin }) => {
     getSetting(),
     getBookedDatesByCabinId(cabin.id.toString()),
   ]);
-  console.log({ setting, bookedDates });
   return (
     <div className="grid min-h-[400px] grid-cols-2 border border-primary-800">
       <DateSelector setting={setting} bookedDates={bookedDates} cabin={cabin}></DateSelector>

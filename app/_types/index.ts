@@ -1,3 +1,6 @@
+import { Dispatch, SetStateAction } from 'react';
+import { DateRange } from 'react-day-picker';
+
 export interface Cabin {
   id: number;
   name: string;
@@ -28,3 +31,9 @@ export interface Setting {
   maxGuestsPerBooking: number;
   breakfastPrice: number;
 }
+
+export type ReservationContextType = {
+  range: DateRange | undefined;
+  setRange: Dispatch<SetStateAction<DateRange | undefined>>;
+  resetRange: () => void;
+};
