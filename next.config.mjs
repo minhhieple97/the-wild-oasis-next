@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'dclaevazetcjjkrzczpc.supabase.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
   eslint: {

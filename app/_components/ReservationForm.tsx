@@ -3,33 +3,39 @@
 import { FC } from 'react';
 import { Cabin } from '../_types';
 import { useReservationContext } from '../_context/reservation/useReservationContext';
+import Image from 'next/image';
+import { auth } from '../_lib/auth';
 
 interface ReservationFormProps {
   cabin: Cabin;
+  user: {
+    name: string | null | undefined;
+    image: string | null | undefined;
+  };
 }
-export const ReservationForm: FC<ReservationFormProps> = ({ cabin }) => {
+export const ReservationForm: FC<ReservationFormProps> = ({ cabin, user }) => {
   const { range } = useReservationContext();
   const { maxCapacity } = cabin;
-
   return (
     <div className="scale-[1.01]">
       <div className="flex items-center justify-between bg-primary-800 px-16 py-2 text-primary-300">
         <p>Logged in as</p>
-
-        {/* <div className='flex gap-4 items-center'>
-          <img
-            // Important to display google profile images
-            referrerPolicy='no-referrer'
-            className='h-8 rounded-full'
-            src={user.image}
-            alt={user.name}
+        <div className="flex items-center gap-4">
+          <Image
+            className="h-8 w-8 rounded-full"
+            width={8}
+            height={8}
+            src={user.image!}
+            alt={user.name!}
           />
           <p>{user.name}</p>
-        </div> */}
+        </div>
       </div>
-      <p>
-        {range?.from?.toLocaleDateString()} - {range?.to?.toLocaleDateString()}
-      </p>
+      {range?.from && range?.to && (
+        <p>
+          {range?.from?.toLocaleDateString()} - {range?.to?.toLocaleDateString()}
+        </p>
+      )}
 
       <form className="flex flex-col gap-5 bg-primary-900 px-16 py-10 text-lg">
         <div className="space-y-2">
