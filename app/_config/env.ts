@@ -6,6 +6,8 @@ import { z } from 'zod';
 const envSchema = z.object({
   SUPABASE_URL: z.string().url(),
   SUPABASE_KEY: z.string().min(1),
+  AUTH_GOOGLE_ID: z.string().min(1),
+  AUTH_GOOGLE_SECRET: z.string().min(1),
 });
 
 // Validate `process.env` against our schema
