@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { updateGuestProfileAction } from '../_lib/actions';
 import { Guest } from '../_types';
+import { useFormStatus } from 'react-dom';
 
 export const UpdateProfileForm = ({
   children,
@@ -61,10 +62,20 @@ export const UpdateProfileForm = ({
       </div>
 
       <div className="flex items-center justify-end gap-6">
-        <button className="disabled:bg-gray-500 disabled:text-gray-300 bg-accent-500 px-8 py-4 font-semibold text-primary-800 transition-all hover:bg-accent-600 disabled:cursor-not-allowed">
-          Update profile
-        </button>
+        <Button />
       </div>
     </form>
+  );
+};
+
+const Button = () => {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      className="disabled:bg-gray-500 disabled:text-gray-300 bg-accent-500 px-8 py-4 font-semibold text-primary-800 transition-all hover:bg-accent-600 disabled:cursor-not-allowed"
+      disabled={pending}
+    >
+      {pending ? 'Updating...' : 'Update profile'}
+    </button>
   );
 };
