@@ -37,3 +37,13 @@ export type ReservationContextType = {
   setRange: Dispatch<SetStateAction<DateRange | undefined>>;
   resetRange: () => void;
 };
+
+export interface Guest {
+  id: number;
+  createdAt: string; // ISO 8601 date string
+  fullName: string;
+  email: string;
+  nationalId: string;
+  nationality: string;
+  countryFlag: string;
+}

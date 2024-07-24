@@ -1,6 +1,6 @@
 import { eachDayOfInterval } from 'date-fns';
 import { supabase } from './supabase';
-import { Cabin, Setting } from '../_types';
+import { Cabin, Guest, Setting } from '../_types';
 import { notFound } from 'next/navigation';
 
 /////////////
@@ -49,10 +49,8 @@ export const getCabins = async function (): Promise<Cabin[]> {
 };
 
 // Guests are uniquely identified by their email address
-export async function getGuest(email: string) {
-  const { data, error } = await supabase.from('guests').select('*').eq('email', email).single();
-
-  // No error here! We handle the possibility of no guest in the sign in callback
+export async function getGuest(email: string): Promise<Guest> {
+  const { data } = await supabase.from('guest').select('*').eq('email', email).single();
   return data;
 }
 
@@ -140,10 +138,9 @@ export async function getCountries() {
 // CREATE
 
 export async function createGuest(newGuest: any) {
-  const { data, error } = await supabase.from('guests').insert([newGuest]);
-
+  console.log({ newGuest });
+  const { data, error } = await supabase.from('guest').insert([newGuest]);
   if (error) {
-    console.error(error);
     throw new Error('Guest could not be created');
   }
 

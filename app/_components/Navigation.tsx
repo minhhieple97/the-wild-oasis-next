@@ -32,7 +32,7 @@ export default async function Navigation() {
               </div>
             </Link>
           ) : (
-            <Link href="/account/login" className="transition-colors hover:text-accent-400">
+            <Link href="/account" className="transition-colors hover:text-accent-400">
               Guest area
             </Link>
           )}
