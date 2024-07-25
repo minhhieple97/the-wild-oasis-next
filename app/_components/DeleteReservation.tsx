@@ -3,7 +3,7 @@ import { TrashIcon } from '@heroicons/react/24/solid';
 import { deleteReservationAction } from '../_lib/actions';
 import { useTransition } from 'react';
 interface DeleteReservationProps {
-  bookingId: string;
+  bookingId: number;
 }
 export const DeleteReservation = ({ bookingId }: DeleteReservationProps) => {
   const [isPending, startTransition] = useTransition();

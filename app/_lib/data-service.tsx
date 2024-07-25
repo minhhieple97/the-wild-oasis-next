@@ -1,6 +1,6 @@
 import { eachDayOfInterval } from 'date-fns';
 import { supabase } from './supabase';
-import { Cabin, Guest, Setting } from '../_types';
+import { Booking, Cabin, Guest, Setting } from '../_types';
 import { notFound } from 'next/navigation';
 
 /////////////
@@ -54,23 +54,30 @@ export async function getGuest(email: string): Promise<Guest> {
   return data;
 }
 
-export async function getBooking(id: string) {
-  const { data, error, count } = await supabase.from('bookings').select('*').eq('id', id).single();
+export async function getBooking(id: string): Promise<Booking> {
+  const { data, error, count } = await supabase
+    .from('bookings')
+    .select(
+      'id,created_at,startDate,endDate,numNights,numGuests,cabinPrice,extrasPrice,totalPrice,status,hasBreakfast,isPaid,observations,cabinId,guestId,cabins(maxCapacity)',
+    )
+    .eq('id', id)
+    .single();
 
   if (error) {
     console.error(error);
-    throw new Error('Booking could not get loaded');
+    // throw new Error('Booking could not get loaded');
+    notFound();
   }
 
-  return data;
+  return data as any;
 }
 
-export async function getBookings(guestId: string) {
+export async function getBookings(guestId: string): Promise<Booking[]> {
   const { data, error, count } = await supabase
     .from('bookings')
     // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
-      'id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)',
+      'id,created_at,startDate,endDate,numNights,numGuests,cabinPrice,extrasPrice,totalPrice,status,hasBreakfast,isPaid,observations,cabinId,guestId,cabins(maxCapacity,image)',
     )
     .eq('guestId', guestId)
     .order('startDate');
@@ -80,7 +87,7 @@ export async function getBookings(guestId: string) {
     throw new Error('Bookings could not get loaded');
   }
 
-  return data;
+  return data as any;
 }
 
 export async function getBookedDatesByCabinId(cabinId: string) {
@@ -138,7 +145,6 @@ export async function getCountries() {
 // CREATE
 
 export async function createGuest(newGuest: any) {
-  console.log({ newGuest });
   const { data, error } = await supabase.from('guest').insert([newGuest]);
   if (error) {
     throw new Error('Guest could not be created');

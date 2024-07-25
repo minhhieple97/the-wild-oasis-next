@@ -47,3 +47,24 @@ export interface Guest {
   nationality: string;
   countryFlag: string;
 }
+
+export interface Booking {
+  id: number;
+  created_at: string; // ISO string format for timestamp with time zone
+  startDate: string; // ISO string format for timestamp without time zone
+  endDate: string; // ISO string format for timestamp without time zone
+  numNights: number; // smallint
+  numGuests: number; // smallint
+  cabinPrice: number; // smallint
+  extrasPrice: number; // smallint
+  totalPrice: number; // smallint
+  status: string; // text
+  hasBreakfast: boolean;
+  isPaid: boolean;
+  observations: string; // text
+  cabinId: bigint;
+  guestId: bigint;
+  cabins: {
+    maxCapacity: any;
+  };
+}
